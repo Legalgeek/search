@@ -1,57 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script src="./js/vue.js"></script>
-  <link rel="stylesheet" href="./css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <script src="./js/base64.min.js"></script>
 
-</head>
-<body>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- {{ message }} -->
 
-  <div id="app">
-    <!-- {{ message }} -->
-
-    <div id="search">
-      <div id="searchBox">
-        <input
-          type="text"
-          name="legis"
-          id="legisInput"
-          autofocus="autofocus"
-          v-model="keyword"
-        />
-        <input type="button" id="legisSearchBtn" :value="sname" @click="searchitem"/>
+      <div id="search">
+        <div id="searchBox">
+          <input
+            type="text"
+            name="legis"
+            id="legisInput"
+            autofocus="autofocus"
+            v-model="keyword"
+          />
+          <input
+            type="button"
+            id="legisSearchBtn"
+            :value="sname"
+            @click="searchitem"
+          />
+        </div>
       </div>
     </div>
 
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          message: "Hello Vue!",
+          legalgeek: "123",
+          sname: "检索",
+          keyword: "盗窃罪抢劫罪区别",
+          slogan: "检索",
+        },
+        methods: {
+          searchitem() {
+            console.log(this.keyword);
+            var abc=true
+
+            if (abc === true) {
+
+              var host = "http://www.nssd.cn/articles/articlesearch.aspx?invokemethod=search&q=";
+
+            var param = {
+              search: this.keyword,
+              sType: "all",
+              clusterFilter: "classids_s#259#政治法律",
+            };
+            paramFinal = Base64.encode(JSON.stringify(param));
+
+            window.open(host + paramFinal);
+
+            }
+            else{
 
 
+            }
 
-  </div>
 
-  <script>
-    var app = new Vue({
-  el: '#app',
-  data: {
-    message: 'Hello Vue!',
-    legalgeek:'123',
-    sname:12345,
-    keyword:'1234',
-    slogan:"检索"
-  },
-  methods:{
-    searchitem(){
-      console.log(this.keyword)
-      var url = "https://www.baidu.com/s?wd={} site:chinacourt.org".replace("{}", this.keyword)
-      window.open(url)
-    }
-
-  }
-})
-  </script>
-  
-</body>
+          },
+        },
+      });
+    </script>
+  </body>
 </html>
